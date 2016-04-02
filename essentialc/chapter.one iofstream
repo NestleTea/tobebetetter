@@ -1,0 +1,36 @@
+#include<iostream>
+#include<vector>
+#include<fstream>
+#include<algorithm>
+using namespace std;
+int main()
+{
+	int num = 0, sum = 0;
+	vector<int> shuzu;
+	ifstream infile("numone.txt");
+	ofstream outfile("numone1.txt");
+	if (!infile)
+	{
+		cout << "can't do it" << endl;
+		goto V;
+	}
+	else {
+		while (infile >> num)
+		{
+			shuzu.push_back(num);
+		}
+		for (vector<int>::iterator ps = shuzu.begin(); ps != shuzu.end(); ps++)
+		{
+			sum = sum + (*ps);
+		}
+	}
+	cout << sum << endl;
+	sort(shuzu.begin(), shuzu.end());
+	for (vector<int>::iterator ps = shuzu.begin(); ps != shuzu.end(); ps++)
+	{
+		cout << (*ps) << " ";
+		outfile << (*ps) << " ";
+	}
+V:cin.get();
+	return 0;
+}
