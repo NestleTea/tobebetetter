@@ -1,0 +1,44 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+void num_rank(vector<int> &x);
+void display(vector<int> y);
+void num_swap(int &one, int &two);
+int main()
+{  
+	vector<int> num={ 3,2,4,7,9,8,3,2,1,0,8,9,11,2,1};
+	display(num);
+	num_rank(num);
+	display(num);
+	cin.get();
+	return 0;
+}
+
+void display(vector<int> y)
+{
+	for (vector<int>::iterator yp = y.begin(); yp != y.end(); yp++)
+		cout << *yp << " ";
+	cout << endl;
+}
+
+void num_rank(vector<int> &x)
+{
+	for (vector<int>::iterator xp = x.begin(); xp != x.end(); xp++)
+	{
+		for (vector<int>::iterator xpp =x.begin(); xpp !=xp; xpp++)
+		{
+			if ((*xp)<(*xpp))
+			{
+				num_swap(*xp,*xpp);
+			}
+		}
+	}
+}
+
+void num_swap(int &one, int &two)
+{
+	int temp = 0;
+	temp=one;
+	one = two;
+	two = temp;
+}
