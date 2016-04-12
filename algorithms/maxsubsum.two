@@ -1,0 +1,50 @@
+#include <vector>
+#include<iostream>
+using namespace std;
+int maxsubnum(vector<int>a, int left, int right);
+int max(int a, int b, int c);
+int main()
+{
+	vector<int> num{-1,9};
+	int max = maxsubnum(num, 0, num.size()-1);
+	cout << max << endl;
+	cin.get();
+	return 0;
+}
+int maxsubnum(vector<int>a, int left, int right)
+{
+	if (left == right)
+		if (a[left ]>0)
+		return a[left];
+	else return 0;
+	int maxleftnum(0), maxrightnum(0), mid(0);
+	mid = (left + right) / 2;
+	maxleftnum = maxsubnum(a, left, mid);
+	maxrightnum = maxsubnum(a, mid + 1, right);
+	int lsum(0), maxlsum(0);
+	for (int i = mid; i >= 0; i--)
+	{
+		lsum += a[i];
+		if (lsum > maxlsum)
+			maxlsum = lsum;
+	}
+	int rsum(0), maxrsum(0);
+	for (int i = mid+1; i<=right; i++)
+	{
+		rsum += a[i];
+		if (rsum > maxrsum)
+			maxrsum = rsum;
+	}
+	return max(maxleftnum, maxrightnum, maxrsum + maxlsum);
+}
+int max(int a, int b, int c)
+{
+	int maxnum(0);
+	if (a > maxnum)
+		maxnum = a;
+	if (b > maxnum)
+		maxnum = b;
+	if (c > maxnum)
+		maxnum = c;
+	return maxnum;
+}
