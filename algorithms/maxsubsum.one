@@ -1,0 +1,19 @@
+#include <vector>
+#include<iostream>
+using namespace std;
+int main()
+{
+	vector<int> num{ 12,-2,3,-4,-4,9,2,3,-9,-7,6,2,3,0,-1,-8,-3,3,1,-7 };
+	int maxarr(0), thatarr(0);
+	for (int i = 0; i < num.size(); i++)
+	{
+		thatarr += num[i];
+		if (thatarr > maxarr)
+			maxarr = thatarr;
+		else if (thatarr < 0)
+			thatarr = 0;
+	}
+	cout << maxarr << endl;
+	cin.get();
+	return 0;
+}
