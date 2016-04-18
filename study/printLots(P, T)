@@ -1,0 +1,34 @@
+#include<iostream>
+#include<vector>
+#include<iterator>
+using namespace std;
+template<typename Object>
+void printLots(vector<int> intNum, vector<Object> numFind);
+int main()
+{
+	vector<int> P{ 2,4,6,10};
+	vector<int> T{ 1,2,3,4,5,6,7,8,9 };
+	vector<int> S;
+	vector<int> F;
+	printLots(P, T);
+	printLots(S, F);
+	cin.get();
+	return 0;
+}
+template<typename Object>
+void printLots(vector<int> intNum, vector<Object> numFind)
+{
+	if (intNum.empty() || numFind.empty())
+	{
+		cout << "can`t find element" << endl;
+		return;
+	}
+	vector<int>::iterator Num = intNum.begin();
+	vector<Object>::iterator FindElem=numFind.begin();
+	size_t i = 1;
+	for (Num, FindElem,i; Num != intNum.end() && (size_t)(*Num) <= numFind.size(); Num++)
+	{
+		cout << *(FindElem + (*Num)-i) << endl;
+	}
+	return ;
+}
