@@ -1,0 +1,18 @@
+template<typename Object>
+void printLots( list<int> & P,  list<Object> & L) 
+{
+	typename list<int>::iterator pIter;
+	typename list<Object>::iterator lIter;
+	int star(0);
+	lIter = L.begin();
+	for (pIter = P.begin(); pIter != P.end() && lIter != L.end(); pIter++)
+	{
+		while (star < *pIter&&lIter != L.end())
+		{
+			star++;
+			lIter++;
+		}
+		if (lIter != L.end())
+			cout << *lIter << endl;
+	}
+}
