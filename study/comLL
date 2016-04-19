@@ -1,0 +1,22 @@
+list<Object>  comLL (list<Object> & L1, list<Object> &L2)
+{
+	typename list<Object>::iterator pL1;
+	typename list<Object>::iterator pL2;
+	list<Object> comlist;
+	pL1 = L1.begin();
+	pL2 = L2.begin();
+	while (pL1 != L1.end() && pL2 != L2.end())
+	{
+		if (*pL1 == *pL2)
+		{
+			comlist.push_back(*pL1);
+			pL1++;
+			pL2++;
+		}
+		else if (*pL1 > *pL2)
+			pL2++;
+		else
+			pL1++;
+	}
+	return comlist;
+}
