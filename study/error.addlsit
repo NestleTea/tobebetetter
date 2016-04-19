@@ -1,0 +1,22 @@
+template <typename Object>
+list<Object>  allLL (list<Object> & L1, list<Object> &L2)
+{
+	typename list<Object>::iterator pL1(L1.begin());
+	typename list<Object>::iterator pL2(L2.begin());
+	typename list<Object> newlist;
+	while (pL1 != L1.end() && pL2 != L2.end())
+	{
+		if (*pL1 == *pL2)
+		{
+			newlist.push_back(*pL1);
+			pL1++;
+			pL2++;
+		}
+		else if (*pL1 < *pL2)
+			newlist.push_back(*pL1++);
+		else if (*pL2 < *pL1)
+			newlist.push_back(*pL2++);
+	}
+	
+	return newlist;
+}
