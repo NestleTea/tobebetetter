@@ -1,0 +1,123 @@
+#include<iostream>
+using namespace std;
+template <typename Object>
+class Btree
+{
+public:
+	struct tree
+	{
+		Object data;
+		tree *left;
+		tree *right;
+		tree(Object x, tree *lt, tree *rt) :
+			data(x), left(lt), right(rt) {}
+	};
+	tree *root;
+	Btree()
+	{
+		tree * root(NULL);
+	}
+	Btree(const Btree &rhs)
+	{
+		clone(rhs.root);
+	}
+	~Btree()
+	{
+		makeEmpty();
+	}
+	const Btree& operator =(const Btree rhs)
+	{
+		if (this != rhs)
+		{
+			makeEmpty();
+			root = clone(rhs.root);
+		}
+		return *this;
+	}
+	tree *findMin(const tree *rhs)const 
+	{
+		if (rhs == NULL)
+			return NULL;
+		else if ((rhs->left) == NULL)
+			return rhs;
+		else findMin(rhs->left);
+	}
+	tree *findMax(const tree *rhs)const
+	{
+		if (rhs == NULL)
+			return NULL;
+		else if ((rhs->right) == NULL)
+			return rhs;
+		else return findMax(rhs->right);
+	}
+	tree *findTree(const Object x,const tree *rhs)const
+	{
+		if (rhs == NULL)
+			return NULL;
+		else if ((rhs->data) == x)
+			return rhs;
+		else if ((rhs->data) > x)
+			findTree(x, rhs->left);
+		else if ((rhs->data) < x)
+			findTree(x, rhs->right);
+	}
+	bool empty(const tree *rhs)
+	{
+		if (rhs == NULL) return true;
+		else return false;
+	}
+	void Mempty(tree * rhs)
+	{
+
+	}
+	tree *insert(Object x, tree *rhs)
+	{
+		if (rhs == NULL)
+		{
+			rhs = new rhs(x, NULL, NULL);
+			return rhs;
+		}
+		else if (x < rhs->data)
+			insert(x, rhs->left);
+		else if (x > rhs->data)
+			insert(x, rhs->right);
+		else if (x == rhs->data)
+			return rhs;
+	}
+	tree *remove(Object x, tree *rhs)
+	{
+		if (rhs == NULL) return NULL;
+		else if (x < rhs->data)
+			remove(x, rhs->left);
+		else if (x > rhs->data)
+			remove(x, rhs->right);
+		else if (rhs->left != NULL&&rhs->right != NULL)
+		{
+			rhs->data = findMin(rhs->right)->data;
+			remove(rhs->data, rhs->right);
+		}
+		else
+		{
+			tree *temp = rhs;
+			rhs = (rhs->left != NULL) ? rhs->left : rhs->right;
+			delete temp;
+		}
+	}
+	void makeEmpty(tree * & rhs)
+	{
+		if (rhs != NULL)
+		{
+			makeEmpty(rhs->left);
+			makeEmpty(rhs->right);
+			delete rhs;
+		}
+		rhs = NULL;
+	}
+	tree * clone(tree *rhs)const
+	{
+		if (rhs == NULL)
+			return NULL;
+		else return new tree(rhs->data, clone(rhs->left), clone(rhs->right));
+	}
+
+};
