@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+template<typename Object>
+
+class HashTable
+{
+public:
+	class HashItem
+	{
+	private:
+		int key;
+		Object val;
+	public:
+		HashItem(int num, Object v) :key(num), val(v) {}
+		const int &getkey()
+		{
+			return key;
+		}
+		const Object &getval()
+		{
+			return val;
+		}
+	};
+private:
+	static const int Size = 256;
+	HashItem **table;
+public:
+	HashTable ()
+	{
+		table = new HashItem*[Size]();
+	}
+	void set(int key, Object val)
+	{
+		int idx = key%Size;
+		if (table[idx]) delete table[idx];
+		table[idx] = new HashItem(key, val);
+	}
+	const int getkey(int key)
+	{
+		int idx = key%Size;
+		return table[idx] ? table[idx]->getval() : -1;
+	}
+	~HashTable()
+	{
+		for (int i = 0; i < Size; i++)
+			if (table[i]) delete table[i];
+		delete[];
+	}
+};
